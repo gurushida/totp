@@ -27,4 +27,6 @@
  * @return The lifetime in seconds of the calculated MFA code, i.e. the number of
  *         seconds the code can be used before becoming obsolete.
  */
-int get_totp(u_int8_t* secret, size_t secret_size, char* code);
+#pragma once
+
+int get_totp(uint8_t* secret, size_t secret_size, char* code);

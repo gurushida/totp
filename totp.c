@@ -15,20 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <ctype.h>
-#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 #include "hmac-sha1.h"
-
 
 /**
  * Returns the number of periods of 30 seconds since the beginning of the
  * Unix Epoch as a 8 byte value.
  */
-static void get_half_minutes_elapsed(u_int8_t* output) {
+static void get_half_minutes_elapsed(uint8_t* output) {
     time_t now = time(NULL);
     time_t half_minutes = now / 30;
     int n = sizeof(time_t);
@@ -39,18 +36,17 @@ static void get_half_minutes_elapsed(u_int8_t* output) {
     }
 }
 
-
-int get_totp(u_int8_t* secret, size_t secret_size, char* code) {
+int get_totp(uint8_t* secret, size_t secret_size, char* code) {
     unsigned char half_minutes[8];
     get_half_minutes_elapsed(half_minutes);
 
-    u_int8_t hash[20];
+    uint8_t hash[20];
 
     // The hmac_sha1 expects sizes in bits, not bytes, hence the x8
     hmac_sha1(hash, secret, secret_size * 8, half_minutes, 8 * 8);
 
     int offset = hash[19] & 0xf;
-    u_int32_t binary = ((hash[offset] & 0x7f) << 24) | ((hash[offset + 1] & 0xff) << 16)
+    uint32_t binary = ((hash[offset] & 0x7f) << 24) | ((hash[offset + 1] & 0xff) << 16)
                 | ((hash[offset + 2] & 0xff) << 8) | (hash[offset + 3] & 0xff);
 
     int otp = binary % 1000000;

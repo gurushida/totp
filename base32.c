@@ -16,24 +16,25 @@
  */
 
 #include <ctype.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
 static char* valid_base32_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
 
-int decode_base32(char* msg, u_int8_t* *output) {
+int decode_base32(char* msg, uint8_t* *output) {
     if (msg == NULL || strlen(msg) == 0) {
         return -1;
     }
-    *output = (u_int8_t*)malloc(sizeof(u_int8_t) * strlen(msg));
+    *output = (uint8_t*)malloc(sizeof(uint8_t) * strlen(msg));
     if (!*output) {
         return -2;
     }
 
     int posInOutput = 0;
     int nBitsDecoded = 0;
-    u_int16_t current = 0;
+    uint16_t current = 0;
     while (*msg) {
         char* pos = strchr(valid_base32_chars, toupper(*msg));
         if (pos == NULL) {

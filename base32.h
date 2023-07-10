@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdint.h>
 /**
  * Given a string representing a base32-encoded value, dynamically
  * allocates and fills an output array with the decoded bytes.
@@ -25,4 +26,4 @@
  *         -1 if the given msg is not a valid base32 value
  *         -2 if the output array cannot be allocated
  */
-int decode_base32(char* msg, u_int8_t* *output);
+int decode_base32(char* msg, uint8_t* *output);

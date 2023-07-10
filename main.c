@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
 
     char* base32_key = argv[optind];
 
-    u_int8_t* key;
+    uint8_t* key;
     int size_key = decode_base32(base32_key, &key);
     if (size_key == -1) {
         fprintf(stderr, "The given secret '%s' is not a valid base32 encoded value\n", base32_key);
