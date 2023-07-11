@@ -1,6 +1,7 @@
 #include <string>
-#include <totp/totp.hpp>
+#include <iomanip>
 #include <cxxopts.hpp>
+#include <totp/totp.hpp>
 
 int main(int argc, char* argv[]) {
 	try {
@@ -11,7 +12,7 @@ int main(int argc, char* argv[]) {
 		const auto result = options.parse(argc, argv);
 		const auto key = result["key"].as<std::string>();
 		const auto [lifetime, totp] = totp::get_totp(key.c_str());
-		std::cout << "otp: " << totp << ", lifetime: " << lifetime << std::endl;
+		std::cout <<"TOTP = " << totp << ":" << std::setfill('0') << std::setw(2) << lifetime << std::endl;
 	}
 	catch (const std::exception& e) {
 		std::string msg = e.what();
